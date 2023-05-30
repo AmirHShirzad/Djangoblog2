@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+
+<article class="media content-section">
+    <img class="rounded-circle article-img" src="{{post.author.profile.image.url}}">
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ object.author }}</a>
+            <small class="text-muted">{{ object.created_date | date:"F j, Y" }}</small>
+       </div>
+        <div>
+            {% if object.author == user %}
+                <!--my-1, which is margin-y. with this You don't need to type them separately mb-1 and mt-1, margin of 1 at the top and bottom.  -->
+                <a class="btn btn-warning btn-sm my-1" href="{% url 'post-update' object.id %}">Edit</a>
+                <a class="btn btn-danger btn-sm my-1" href="{% url 'post-delete' object.id %}">Delete</a>
+            {% endif %}
+        </div>
+        <h2 class="article-title">{{ object.title }}</h2>
+        <p class="article-content">{{ object.content }}</p>
+    </div>
+</article>
+
+
+
+{% endblock %}
